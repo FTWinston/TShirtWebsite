@@ -13,5 +13,15 @@ namespace TShirts.Models
             : base("DefaultConnection")
         {
         }
+
+        public System.Data.Entity.DbSet<TShirts.Models.GarmentType> GarmentTypes { get; set; }
+
+        public System.Data.Entity.DbSet<TShirts.Models.Range> Ranges { get; set; }
+
+        public System.Data.Entity.DbSet<TShirts.Models.Color> Colors { get; set; }
+
+        public System.Data.Entity.DbSet<TShirts.Models.Size> Sizes { get; set; }
+
+        public System.Data.Entity.DbSet<TShirts.Models.News> News { get; set; }
     }
 }
