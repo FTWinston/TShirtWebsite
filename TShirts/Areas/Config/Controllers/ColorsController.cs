@@ -12,7 +12,7 @@ namespace TShirts.Areas.Config.Controllers
 {
     public class ColorsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private Entities db = new Entities();
 
         // GET: /Config/Colors/
         public ActionResult Index()

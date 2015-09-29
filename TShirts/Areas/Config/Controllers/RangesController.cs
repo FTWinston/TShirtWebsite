@@ -12,7 +12,7 @@ namespace TShirts.Areas.Config.Controllers
 {
     public class RangesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private Entities db = new Entities();
 
         // GET: /Config/Ranges/
         public ActionResult Index()
@@ -20,24 +20,10 @@ namespace TShirts.Areas.Config.Controllers
             return View(db.Ranges.ToList());
         }
 
-        // GET: /Config/Ranges/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Range range = db.Ranges.Find(id);
-            if (range == null)
-            {
-                return HttpNotFound();
-            }
-            return View(range);
-        }
-
         // GET: /Config/Ranges/Create
         public ActionResult Create()
         {
+            ViewBag.GarmentTypes = new SelectList(db.GarmentTypes, "ID", "Name");
             return View();
         }
 
@@ -46,7 +32,7 @@ namespace TShirts.Areas.Config.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="ID,Name,SortOrder")] Range range)
+        public ActionResult Create([Bind(Include="ID,GarmentTypeID,Name,SortOrder,Webpage,Available")] Range range)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +41,7 @@ namespace TShirts.Areas.Config.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.GarmentTypes = new SelectList(db.GarmentTypes, "ID", "Name");
             return View(range);
         }
 
@@ -70,6 +57,8 @@ namespace TShirts.Areas.Config.Controllers
             {
                 return HttpNotFound();
             }
+            
+            ViewBag.GarmentTypes = new SelectList(db.GarmentTypes, "ID", "Name");
             return View(range);
         }
 
@@ -78,7 +67,7 @@ namespace TShirts.Areas.Config.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="ID,Name,SortOrder")] Range range)
+        public ActionResult Edit([Bind(Include = "ID,GarmentTypeID,Name,SortOrder,Webpage,Available")] Range range)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +75,8 @@ namespace TShirts.Areas.Config.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            ViewBag.GarmentTypes = new SelectList(db.GarmentTypes, "ID", "Name");
             return View(range);
         }
 

@@ -21,6 +21,7 @@ namespace TShirts.Models
         }
     
         public int ID { get; set; }
+        public int RangeID { get; set; }
         public string Name { get; set; }
         public string ColorCode { get; set; }
         public int SortOrder { get; set; }

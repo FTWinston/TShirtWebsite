@@ -15,6 +15,9 @@ namespace TShirts.Models
     public partial class OrderLine
     {
         public int ID { get; set; }
+        public int OrderID { get; set; }
+        public int DesignID { get; set; }
+        public int SizeID { get; set; }
         public int Quantity { get; set; }
         public decimal Price { get; set; }
     

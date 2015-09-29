@@ -18,6 +18,7 @@ namespace TShirts.Models
         public System.DateTime CreatedDate { get; set; }
         public Nullable<System.DateTime> ExpiryDate { get; set; }
         public string Text { get; set; }
+        public int AccountID { get; set; }
     
         public virtual Account Account { get; set; }
     }

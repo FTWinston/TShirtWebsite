@@ -264,12 +264,10 @@
     <Content Include="Areas\Config\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Config\Views\GarmentTypes\Create.cshtml" />
     <Content Include="Areas\Config\Views\GarmentTypes\Delete.cshtml" />
-    <Content Include="Areas\Config\Views\GarmentTypes\Details.cshtml" />
     <Content Include="Areas\Config\Views\GarmentTypes\Edit.cshtml" />
     <Content Include="Areas\Config\Views\GarmentTypes\Index.cshtml" />
     <Content Include="Areas\Config\Views\Ranges\Create.cshtml" />
     <Content Include="Areas\Config\Views\Ranges\Delete.cshtml" />
-    <Content Include="Areas\Config\Views\Ranges\Details.cshtml" />
     <Content Include="Areas\Config\Views\Ranges\Edit.cshtml" />
     <Content Include="Areas\Config\Views\Ranges\Index.cshtml" />
     <Content Include="Areas\Config\Views\Colors\Create.cshtml" />
@@ -329,7 +327,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Config\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

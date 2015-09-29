@@ -25,10 +25,34 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.GarmentType, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.GarmentTypeID, ViewBag.GarmentTypes as SelectList)
+                @Html.ValidationMessageFor(model => model.GarmentTypeID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Webpage, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Webpage)
+                @Html.ValidationMessageFor(model => model.Webpage)
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.SortOrder, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.SortOrder)
                 @Html.ValidationMessageFor(model => model.SortOrder)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Available, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Available)
+                @Html.ValidationMessageFor(model => model.Available)
             </div>
         </div>
 

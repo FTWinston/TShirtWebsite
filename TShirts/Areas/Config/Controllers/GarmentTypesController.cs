@@ -12,27 +12,12 @@ namespace TShirts.Areas.Config.Controllers
 {
     public class GarmentTypesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private Entities db = new Entities();
 
         // GET: /Config/GarmentTypes/
         public ActionResult Index()
         {
             return View(db.GarmentTypes.ToList());
-        }
-
-        // GET: /Config/GarmentTypes/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            GarmentType garmenttype = db.GarmentTypes.Find(id);
-            if (garmenttype == null)
-            {
-                return HttpNotFound();
-            }
-            return View(garmenttype);
         }
 
         // GET: /Config/GarmentTypes/Create

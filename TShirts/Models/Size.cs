@@ -20,6 +20,7 @@ namespace TShirts.Models
         }
     
         public int ID { get; set; }
+        public int ColorID { get; set; }
         public string Name { get; set; }
         public int SortOrder { get; set; }
         public bool Available { get; set; }

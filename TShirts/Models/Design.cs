@@ -22,6 +22,7 @@ namespace TShirts.Models
         }
     
         public int ID { get; set; }
+        public int ColorID { get; set; }
         public string Notes { get; set; }
     
         public virtual Color Color { get; set; }

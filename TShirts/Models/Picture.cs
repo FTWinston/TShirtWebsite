@@ -15,6 +15,7 @@ namespace TShirts.Models
     public partial class Picture
     {
         public int ID { get; set; }
+        public int DesignID { get; set; }
         public string FilePath { get; set; }
         public double Width { get; set; }
         public double Height { get; set; }

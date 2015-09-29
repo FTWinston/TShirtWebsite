@@ -20,7 +20,9 @@ namespace TShirts.Models
         }
     
         public int ID { get; set; }
+        public int StatusID { get; set; }
         public int SessionID { get; set; }
+        public Nullable<int> AccountID { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<System.DateTime> PaidDate { get; set; }
         public Nullable<System.DateTime> RequiredDate { get; set; }

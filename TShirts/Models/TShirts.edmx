@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TShirtModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TShirtModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Accounts">
           <Key>
             <PropertyRef Name="ID" />
@@ -115,6 +115,8 @@
           <Property Name="GarmentTypeID" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SortOrder" Type="int" Nullable="false" />
+          <Property Name="Webpage" Type="nvarchar" MaxLength="200" />
+          <Property Name="Available" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Sizes">
           <Key>
@@ -388,296 +390,423 @@
             <End Role="Text" EntitySet="Text" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TShirtModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="TShirtModel.Account" />
+          <EntitySet Name="Designs" EntityType="TShirtModel.Design" />
+          <EntitySet Name="Fonts" EntityType="TShirtModel.Font" />
+          <EntitySet Name="OrderLines" EntityType="TShirtModel.OrderLine" />
+          <EntitySet Name="Orders" EntityType="TShirtModel.Order" />
+          <EntitySet Name="Pictures" EntityType="TShirtModel.Picture" />
+          <EntitySet Name="Texts" EntityType="TShirtModel.Text" />
+          <EntitySet Name="VinylColors" EntityType="TShirtModel.VinylColor" />
+          <AssociationSet Name="FK_Orders_Accounts" Association="TShirtModel.FK_Orders_Accounts">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderLines_Designs" Association="TShirtModel.FK_OrderLines_Designs">
+            <End Role="Design" EntitySet="Designs" />
+            <End Role="OrderLine" EntitySet="OrderLines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pictures_Designs" Association="TShirtModel.FK_Pictures_Designs">
+            <End Role="Design" EntitySet="Designs" />
+            <End Role="Picture" EntitySet="Pictures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Text_Designs" Association="TShirtModel.FK_Text_Designs">
+            <End Role="Design" EntitySet="Designs" />
+            <End Role="Text" EntitySet="Texts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Text_Fonts" Association="TShirtModel.FK_Text_Fonts">
+            <End Role="Font" EntitySet="Fonts" />
+            <End Role="Text" EntitySet="Texts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderLines_Orders" Association="TShirtModel.FK_OrderLines_Orders">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="OrderLine" EntitySet="OrderLines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Text_VinylColors" Association="TShirtModel.FK_Text_VinylColors">
+            <End Role="VinylColor" EntitySet="VinylColors" />
+            <End Role="Text" EntitySet="Texts" />
+          </AssociationSet>
+          <EntitySet Name="Colors" EntityType="TShirtModel.Color" />
+          <EntitySet Name="GarmentTypes" EntityType="TShirtModel.GarmentType" />
+          <EntitySet Name="News" EntityType="TShirtModel.News" />
+          <EntitySet Name="OrderStatuses" EntityType="TShirtModel.OrderStatus" />
+          <EntitySet Name="Ranges" EntityType="TShirtModel.Range" />
+          <EntitySet Name="Sizes" EntityType="TShirtModel.Size" />
+          <AssociationSet Name="FK_News_Accounts" Association="TShirtModel.FK_News_Accounts">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Colors_Ranges" Association="TShirtModel.FK_Colors_Ranges">
+            <End Role="Ranx" EntitySet="Ranges" />
+            <End Role="Color" EntitySet="Colors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Designs_Colors" Association="TShirtModel.FK_Designs_Colors">
+            <End Role="Color" EntitySet="Colors" />
+            <End Role="Design" EntitySet="Designs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sizes_Colors" Association="TShirtModel.FK_Sizes_Colors">
+            <End Role="Color" EntitySet="Colors" />
+            <End Role="Size" EntitySet="Sizes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ranges_GarmentTypes" Association="TShirtModel.FK_Ranges_GarmentTypes">
+            <End Role="GarmentType" EntitySet="GarmentTypes" />
+            <End Role="Ranx" EntitySet="Ranges" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderLines_Sizes" Association="TShirtModel.FK_OrderLines_Sizes">
+            <End Role="Size" EntitySet="Sizes" />
+            <End Role="OrderLine" EntitySet="OrderLines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_OrderStatuses" Association="TShirtModel.FK_Orders_OrderStatuses">
+            <End Role="OrderStatus" EntitySet="OrderStatuses" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="News" Relationship="Self.FK_News_Accounts" FromRole="Accounts" ToRole="News" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Accounts" FromRole="Accounts" ToRole="Orders" />
-        </EntityType>
-        <EntityType Name="Color">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ColorCode" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="SortOrder" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Range" Relationship="Self.FK_Colors_Ranges" FromRole="Colors" ToRole="Ranges" />
-          <NavigationProperty Name="Designs" Relationship="Self.FK_Designs_Colors" FromRole="Colors" ToRole="Designs" />
-          <NavigationProperty Name="Sizes" Relationship="Self.FK_Sizes_Colors" FromRole="Colors" ToRole="Sizes" />
+          <NavigationProperty Name="Orders" Relationship="TShirtModel.FK_Orders_Accounts" FromRole="Account" ToRole="Order" />
+          <NavigationProperty Name="News" Relationship="TShirtModel.FK_News_Accounts" FromRole="Account" ToRole="News" />
         </EntityType>
         <EntityType Name="Design">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ColorID" Type="Int32" Nullable="false" />
           <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Color" Relationship="Self.FK_Designs_Colors" FromRole="Designs" ToRole="Colors" />
-          <NavigationProperty Name="OrderLines" Relationship="Self.FK_OrderLines_Designs" FromRole="Designs" ToRole="OrderLines" />
-          <NavigationProperty Name="Pictures" Relationship="Self.FK_Pictures_Designs" FromRole="Designs" ToRole="Pictures" />
-          <NavigationProperty Name="Texts" Relationship="Self.FK_Text_Designs" FromRole="Designs" ToRole="Text" />
+          <NavigationProperty Name="OrderLines" Relationship="TShirtModel.FK_OrderLines_Designs" FromRole="Design" ToRole="OrderLine" />
+          <NavigationProperty Name="Pictures" Relationship="TShirtModel.FK_Pictures_Designs" FromRole="Design" ToRole="Picture" />
+          <NavigationProperty Name="Texts" Relationship="TShirtModel.FK_Text_Designs" FromRole="Design" ToRole="Text" />
+          <NavigationProperty Name="Color" Relationship="TShirtModel.FK_Designs_Colors" FromRole="Design" ToRole="Color" />
         </EntityType>
         <EntityType Name="Font">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SortOrder" Type="Int32" Nullable="false" />
           <Property Name="Available" Type="Boolean" Nullable="false" />
-          <Property Name="CssName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CssName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FileName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Texts" Relationship="Self.FK_Text_Fonts" FromRole="Fonts" ToRole="Text" />
-        </EntityType>
-        <EntityType Name="GarmentType">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SortOrder" Type="Int32" Nullable="false" />
-          <Property Name="Available" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Ranges" Relationship="Self.FK_Ranges_GarmentTypes" FromRole="GarmentTypes" ToRole="Ranges" />
-        </EntityType>
-        <EntityType Name="News">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ExpiryDate" Type="DateTime" Precision="3" />
-          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Account" Relationship="Self.FK_News_Accounts" FromRole="News" ToRole="Accounts" />
+          <NavigationProperty Name="Texts" Relationship="TShirtModel.FK_Text_Fonts" FromRole="Font" ToRole="Text" />
         </EntityType>
         <EntityType Name="OrderLine">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="DesignID" Type="Int32" Nullable="false" />
+          <Property Name="SizeID" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <NavigationProperty Name="Design" Relationship="Self.FK_OrderLines_Designs" FromRole="OrderLines" ToRole="Designs" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_OrderLines_Orders" FromRole="OrderLines" ToRole="Orders" />
-          <NavigationProperty Name="Size" Relationship="Self.FK_OrderLines_Sizes" FromRole="OrderLines" ToRole="Sizes" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="Design" Relationship="TShirtModel.FK_OrderLines_Designs" FromRole="OrderLine" ToRole="Design" />
+          <NavigationProperty Name="Order" Relationship="TShirtModel.FK_OrderLines_Orders" FromRole="OrderLine" ToRole="Order" />
+          <NavigationProperty Name="Size" Relationship="TShirtModel.FK_OrderLines_Sizes" FromRole="OrderLine" ToRole="Size" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
           <Property Name="SessionID" Type="Int32" Nullable="false" />
+          <Property Name="AccountID" Type="Int32" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PaidDate" Type="DateTime" Precision="3" />
           <Property Name="RequiredDate" Type="DateTime" Precision="3" />
           <Property Name="DispatchedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Account" Relationship="Self.FK_Orders_Accounts" FromRole="Orders" ToRole="Accounts" />
-          <NavigationProperty Name="OrderLines" Relationship="Self.FK_OrderLines_Orders" FromRole="Orders" ToRole="OrderLines" />
-          <NavigationProperty Name="OrderStatus" Relationship="Self.FK_Orders_OrderStatuses" FromRole="Orders" ToRole="OrderStatuses" />
-        </EntityType>
-        <EntityType Name="OrderStatus">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SortOrder" Type="Int32" Nullable="false" />
-          <Property Name="IsPlaced" Type="Boolean" Nullable="false" />
-          <Property Name="IsClosed" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_OrderStatuses" FromRole="OrderStatuses" ToRole="Orders" />
+          <NavigationProperty Name="Account" Relationship="TShirtModel.FK_Orders_Accounts" FromRole="Order" ToRole="Account" />
+          <NavigationProperty Name="OrderLines" Relationship="TShirtModel.FK_OrderLines_Orders" FromRole="Order" ToRole="OrderLine" />
+          <NavigationProperty Name="OrderStatus" Relationship="TShirtModel.FK_Orders_OrderStatuses" FromRole="Order" ToRole="OrderStatus" />
         </EntityType>
         <EntityType Name="Picture">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="FilePath" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DesignID" Type="Int32" Nullable="false" />
+          <Property Name="FilePath" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Width" Type="Double" Nullable="false" />
           <Property Name="Height" Type="Double" Nullable="false" />
           <Property Name="PositionX" Type="Double" Nullable="false" />
           <Property Name="PositionY" Type="Double" Nullable="false" />
-          <NavigationProperty Name="Design" Relationship="Self.FK_Pictures_Designs" FromRole="Pictures" ToRole="Designs" />
-        </EntityType>
-        <EntityType Name="Range">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SortOrder" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Colors" Relationship="Self.FK_Colors_Ranges" FromRole="Ranges" ToRole="Colors" />
-          <NavigationProperty Name="GarmentType" Relationship="Self.FK_Ranges_GarmentTypes" FromRole="Ranges" ToRole="GarmentTypes" />
-        </EntityType>
-        <EntityType Name="Size">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SortOrder" Type="Int32" Nullable="false" />
-          <Property Name="Available" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Color" Relationship="Self.FK_Sizes_Colors" FromRole="Sizes" ToRole="Colors" />
-          <NavigationProperty Name="OrderLines" Relationship="Self.FK_OrderLines_Sizes" FromRole="Sizes" ToRole="OrderLines" />
+          <NavigationProperty Name="Design" Relationship="TShirtModel.FK_Pictures_Designs" FromRole="Picture" ToRole="Design" />
         </EntityType>
         <EntityType Name="Text">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="TextValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DesignID" Type="Int32" Nullable="false" />
+          <Property Name="VinylColorID" Type="Int32" Nullable="false" />
+          <Property Name="FontID" Type="Int32" Nullable="false" />
+          <Property Name="TextValue" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PositionX" Type="Double" Nullable="false" />
           <Property Name="PositionY" Type="Double" Nullable="false" />
           <Property Name="Alignment" Type="Byte" Nullable="false" />
-          <NavigationProperty Name="Design" Relationship="Self.FK_Text_Designs" FromRole="Text" ToRole="Designs" />
-          <NavigationProperty Name="Font" Relationship="Self.FK_Text_Fonts" FromRole="Text" ToRole="Fonts" />
-          <NavigationProperty Name="VinylColor" Relationship="Self.FK_Text_VinylColors" FromRole="Text" ToRole="VinylColors" />
+          <NavigationProperty Name="Design" Relationship="TShirtModel.FK_Text_Designs" FromRole="Text" ToRole="Design" />
+          <NavigationProperty Name="Font" Relationship="TShirtModel.FK_Text_Fonts" FromRole="Text" ToRole="Font" />
+          <NavigationProperty Name="VinylColor" Relationship="TShirtModel.FK_Text_VinylColors" FromRole="Text" ToRole="VinylColor" />
         </EntityType>
         <EntityType Name="VinylColor">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SortOrder" Type="Int32" Nullable="false" />
           <Property Name="Available" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Texts" Relationship="Self.FK_Text_VinylColors" FromRole="VinylColors" ToRole="Text" />
+          <NavigationProperty Name="Texts" Relationship="TShirtModel.FK_Text_VinylColors" FromRole="VinylColor" ToRole="Text" />
         </EntityType>
-        <Association Name="FK_News_Accounts">
-          <End Role="Accounts" Type="Self.Account" Multiplicity="1" />
-          <End Role="News" Type="Self.News" Multiplicity="*" />
-        </Association>
         <Association Name="FK_Orders_Accounts">
-          <End Role="Accounts" Type="Self.Account" Multiplicity="0..1" />
-          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_Colors_Ranges">
-          <End Role="Ranges" Type="TShirtModel.Range" Multiplicity="1" />
-          <End Role="Colors" Type="Self.Color" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_Designs_Colors">
-          <End Role="Colors" Type="Self.Color" Multiplicity="1" />
-          <End Role="Designs" Type="Self.Design" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_Sizes_Colors">
-          <End Role="Colors" Type="Self.Color" Multiplicity="1" />
-          <End Role="Sizes" Type="Self.Size" Multiplicity="*" />
+          <End Type="TShirtModel.Account" Role="Account" Multiplicity="0..1" />
+          <End Type="TShirtModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderLines_Designs">
-          <End Role="Designs" Type="Self.Design" Multiplicity="1" />
-          <End Role="OrderLines" Type="Self.OrderLine" Multiplicity="*" />
+          <End Type="TShirtModel.Design" Role="Design" Multiplicity="1" />
+          <End Type="TShirtModel.OrderLine" Role="OrderLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Design">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="OrderLine">
+              <PropertyRef Name="DesignID" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         <Association Name="FK_Pictures_Designs">
-          <End Role="Designs" Type="Self.Design" Multiplicity="1" />
-          <End Role="Pictures" Type="Self.Picture" Multiplicity="*" />
+          <End Type="TShirtModel.Design" Role="Design" Multiplicity="1" />
+          <End Type="TShirtModel.Picture" Role="Picture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Design">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Picture">
+              <PropertyRef Name="DesignID" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         <Association Name="FK_Text_Designs">
-          <End Role="Designs" Type="Self.Design" Multiplicity="1" />
-          <End Role="Text" Type="Self.Text" Multiplicity="*" />
+          <End Type="TShirtModel.Design" Role="Design" Multiplicity="1" />
+          <End Type="TShirtModel.Text" Role="Text" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Design">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Text">
+              <PropertyRef Name="DesignID" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         <Association Name="FK_Text_Fonts">
-          <End Role="Fonts" Type="Self.Font" Multiplicity="1" />
-          <End Role="Text" Type="Self.Text" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_Ranges_GarmentTypes">
-          <End Role="GarmentTypes" Type="Self.GarmentType" Multiplicity="1" />
-          <End Role="Ranges" Type="TShirtModel.Range" Multiplicity="*" />
+          <End Type="TShirtModel.Font" Role="Font" Multiplicity="1" />
+          <End Type="TShirtModel.Text" Role="Text" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Font">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Text">
+              <PropertyRef Name="FontID" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderLines_Orders">
-          <End Role="Orders" Type="Self.Order" Multiplicity="1" />
-          <End Role="OrderLines" Type="Self.OrderLine" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_OrderLines_Sizes">
-          <End Role="Sizes" Type="Self.Size" Multiplicity="1" />
-          <End Role="OrderLines" Type="Self.OrderLine" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_Orders_OrderStatuses">
-          <End Role="OrderStatuses" Type="Self.OrderStatus" Multiplicity="1" />
-          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <End Type="TShirtModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="TShirtModel.OrderLine" Role="OrderLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="OrderLine">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         <Association Name="FK_Text_VinylColors">
-          <End Role="VinylColors" Type="Self.VinylColor" Multiplicity="1" />
-          <End Role="Text" Type="Self.Text" Multiplicity="*" />
+          <End Type="TShirtModel.VinylColor" Role="VinylColor" Multiplicity="1" />
+          <End Type="TShirtModel.Text" Role="Text" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VinylColor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Text">
+              <PropertyRef Name="VinylColorID" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Accounts" EntityType="Self.Account" />
-          <EntitySet Name="Colors" EntityType="Self.Color" />
-          <EntitySet Name="Designs" EntityType="Self.Design" />
-          <EntitySet Name="Fonts" EntityType="Self.Font" />
-          <EntitySet Name="GarmentTypes" EntityType="Self.GarmentType" />
-          <EntitySet Name="News" EntityType="Self.News" />
-          <EntitySet Name="OrderLines" EntityType="Self.OrderLine" />
-          <EntitySet Name="Orders" EntityType="Self.Order" />
-          <EntitySet Name="OrderStatuses" EntityType="Self.OrderStatus" />
-          <EntitySet Name="Pictures" EntityType="Self.Picture" />
-          <EntitySet Name="Ranges" EntityType="TShirtModel.Range" />
-          <EntitySet Name="Sizes" EntityType="Self.Size" />
-          <EntitySet Name="Texts" EntityType="Self.Text" />
-          <EntitySet Name="VinylColors" EntityType="Self.VinylColor" />
-          <AssociationSet Name="FK_News_Accounts" Association="Self.FK_News_Accounts">
-            <End Role="Accounts" EntitySet="Accounts" />
-            <End Role="News" EntitySet="News" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Orders_Accounts" Association="Self.FK_Orders_Accounts">
-            <End Role="Accounts" EntitySet="Accounts" />
-            <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Colors_Ranges" Association="Self.FK_Colors_Ranges">
-            <End Role="Ranges" EntitySet="Ranges" />
-            <End Role="Colors" EntitySet="Colors" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Designs_Colors" Association="Self.FK_Designs_Colors">
-            <End Role="Colors" EntitySet="Colors" />
-            <End Role="Designs" EntitySet="Designs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Sizes_Colors" Association="Self.FK_Sizes_Colors">
-            <End Role="Colors" EntitySet="Colors" />
-            <End Role="Sizes" EntitySet="Sizes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderLines_Designs" Association="Self.FK_OrderLines_Designs">
-            <End Role="Designs" EntitySet="Designs" />
-            <End Role="OrderLines" EntitySet="OrderLines" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Pictures_Designs" Association="Self.FK_Pictures_Designs">
-            <End Role="Designs" EntitySet="Designs" />
-            <End Role="Pictures" EntitySet="Pictures" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Text_Designs" Association="Self.FK_Text_Designs">
-            <End Role="Designs" EntitySet="Designs" />
-            <End Role="Text" EntitySet="Texts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Text_Fonts" Association="Self.FK_Text_Fonts">
-            <End Role="Fonts" EntitySet="Fonts" />
-            <End Role="Text" EntitySet="Texts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Ranges_GarmentTypes" Association="Self.FK_Ranges_GarmentTypes">
-            <End Role="GarmentTypes" EntitySet="GarmentTypes" />
-            <End Role="Ranges" EntitySet="Ranges" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderLines_Orders" Association="Self.FK_OrderLines_Orders">
-            <End Role="Orders" EntitySet="Orders" />
-            <End Role="OrderLines" EntitySet="OrderLines" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderLines_Sizes" Association="Self.FK_OrderLines_Sizes">
-            <End Role="Sizes" EntitySet="Sizes" />
-            <End Role="OrderLines" EntitySet="OrderLines" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Orders_OrderStatuses" Association="Self.FK_Orders_OrderStatuses">
-            <End Role="OrderStatuses" EntitySet="OrderStatuses" />
-            <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Text_VinylColors" Association="Self.FK_Text_VinylColors">
-            <End Role="VinylColors" EntitySet="VinylColors" />
-            <End Role="Text" EntitySet="Texts" />
-          </AssociationSet>
-        </EntityContainer>
+        <EntityType Name="Color">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RangeID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ColorCode" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Name="SortOrder" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Range" Relationship="TShirtModel.FK_Colors_Ranges" FromRole="Color" ToRole="Ranx" />
+          <NavigationProperty Name="Designs" Relationship="TShirtModel.FK_Designs_Colors" FromRole="Color" ToRole="Design" />
+          <NavigationProperty Name="Sizes" Relationship="TShirtModel.FK_Sizes_Colors" FromRole="Color" ToRole="Size" />
+        </EntityType>
+        <EntityType Name="GarmentType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SortOrder" Type="Int32" Nullable="false" />
+          <Property Name="Available" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Ranges" Relationship="TShirtModel.FK_Ranges_GarmentTypes" FromRole="GarmentType" ToRole="Ranx" />
+        </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ExpiryDate" Type="DateTime" Precision="3" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AccountID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="TShirtModel.FK_News_Accounts" FromRole="News" ToRole="Account" />
+        </EntityType>
+        <EntityType Name="OrderStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SortOrder" Type="Int32" Nullable="false" />
+          <Property Name="IsPlaced" Type="Boolean" Nullable="false" />
+          <Property Name="IsClosed" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="TShirtModel.FK_Orders_OrderStatuses" FromRole="OrderStatus" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Range">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GarmentTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SortOrder" Type="Int32" Nullable="false" />
+          <Property Name="Webpage" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Colors" Relationship="TShirtModel.FK_Colors_Ranges" FromRole="Ranx" ToRole="Color" />
+          <NavigationProperty Name="GarmentType" Relationship="TShirtModel.FK_Ranges_GarmentTypes" FromRole="Ranx" ToRole="GarmentType" />
+          <Property Name="Available" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Size">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ColorID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SortOrder" Type="Int32" Nullable="false" />
+          <Property Name="Available" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Color" Relationship="TShirtModel.FK_Sizes_Colors" FromRole="Size" ToRole="Color" />
+          <NavigationProperty Name="OrderLines" Relationship="TShirtModel.FK_OrderLines_Sizes" FromRole="Size" ToRole="OrderLine" />
+        </EntityType>
+        <Association Name="FK_News_Accounts">
+          <End Type="TShirtModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="TShirtModel.News" Role="News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Colors_Ranges">
+          <End Type="TShirtModel.Range" Role="Ranx" Multiplicity="1" />
+          <End Type="TShirtModel.Color" Role="Color" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ranx">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Color">
+              <PropertyRef Name="RangeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Designs_Colors">
+          <End Type="TShirtModel.Color" Role="Color" Multiplicity="1" />
+          <End Type="TShirtModel.Design" Role="Design" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Color">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Design">
+              <PropertyRef Name="ColorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sizes_Colors">
+          <End Type="TShirtModel.Color" Role="Color" Multiplicity="1" />
+          <End Type="TShirtModel.Size" Role="Size" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Color">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Size">
+              <PropertyRef Name="ColorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ranges_GarmentTypes">
+          <End Type="TShirtModel.GarmentType" Role="GarmentType" Multiplicity="1" />
+          <End Type="TShirtModel.Range" Role="Ranx" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GarmentType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Ranx">
+              <PropertyRef Name="GarmentTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderLines_Sizes">
+          <End Type="TShirtModel.Size" Role="Size" Multiplicity="1" />
+          <End Type="TShirtModel.OrderLine" Role="OrderLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Size">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="OrderLine">
+              <PropertyRef Name="SizeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_OrderStatuses">
+          <End Type="TShirtModel.OrderStatus" Role="OrderStatus" Multiplicity="1" />
+          <End Type="TShirtModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -687,259 +816,162 @@
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="TShirtModel.Account">
               <MappingFragment StoreEntitySet="Accounts">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Colors">
-            <EntityTypeMapping TypeName="TShirtModel.Color">
-              <MappingFragment StoreEntitySet="Colors">
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ColorCode" ColumnName="Color" />
-                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Designs">
             <EntityTypeMapping TypeName="TShirtModel.Design">
               <MappingFragment StoreEntitySet="Designs">
-                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="ColorID" ColumnName="ColorID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Fonts">
             <EntityTypeMapping TypeName="TShirtModel.Font">
               <MappingFragment StoreEntitySet="Fonts">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
-                <ScalarProperty Name="Available" ColumnName="Available" />
-                <ScalarProperty Name="CssName" ColumnName="CssName" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="GarmentTypes">
-            <EntityTypeMapping TypeName="TShirtModel.GarmentType">
-              <MappingFragment StoreEntitySet="GarmentTypes">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="CssName" ColumnName="CssName" />
                 <ScalarProperty Name="Available" ColumnName="Available" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="News">
-            <EntityTypeMapping TypeName="TShirtModel.News">
-              <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
-                <ScalarProperty Name="Text" ColumnName="Text" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderLines">
             <EntityTypeMapping TypeName="TShirtModel.OrderLine">
               <MappingFragment StoreEntitySet="OrderLines">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="SizeID" ColumnName="SizeID" />
+                <ScalarProperty Name="DesignID" ColumnName="DesignID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="TShirtModel.Order">
               <MappingFragment StoreEntitySet="Orders">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="SessionID" ColumnName="SessionID" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="PaidDate" ColumnName="PaidDate" />
-                <ScalarProperty Name="RequiredDate" ColumnName="RequiredDate" />
                 <ScalarProperty Name="DispatchedDate" ColumnName="DispatchedDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OrderStatuses">
-            <EntityTypeMapping TypeName="TShirtModel.OrderStatus">
-              <MappingFragment StoreEntitySet="OrderStatuses">
+                <ScalarProperty Name="RequiredDate" ColumnName="RequiredDate" />
+                <ScalarProperty Name="PaidDate" ColumnName="PaidDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
-                <ScalarProperty Name="IsPlaced" ColumnName="IsPlaced" />
-                <ScalarProperty Name="IsClosed" ColumnName="IsClosed" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Pictures">
             <EntityTypeMapping TypeName="TShirtModel.Picture">
               <MappingFragment StoreEntitySet="Pictures">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
-                <ScalarProperty Name="Width" ColumnName="Width" />
-                <ScalarProperty Name="Height" ColumnName="Height" />
-                <ScalarProperty Name="PositionX" ColumnName="PositionX" />
                 <ScalarProperty Name="PositionY" ColumnName="PositionY" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Ranges">
-            <EntityTypeMapping TypeName="TShirtModel.Range">
-              <MappingFragment StoreEntitySet="Ranges">
+                <ScalarProperty Name="PositionX" ColumnName="PositionX" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="DesignID" ColumnName="DesignID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sizes">
-            <EntityTypeMapping TypeName="TShirtModel.Size">
-              <MappingFragment StoreEntitySet="Sizes">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
-                <ScalarProperty Name="Available" ColumnName="Available" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Texts">
             <EntityTypeMapping TypeName="TShirtModel.Text">
               <MappingFragment StoreEntitySet="Text">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="TextValue" ColumnName="Text" />
-                <ScalarProperty Name="PositionX" ColumnName="PositionX" />
-                <ScalarProperty Name="PositionY" ColumnName="PositionY" />
                 <ScalarProperty Name="Alignment" ColumnName="Alignment" />
+                <ScalarProperty Name="PositionY" ColumnName="PositionY" />
+                <ScalarProperty Name="PositionX" ColumnName="PositionX" />
+                <ScalarProperty Name="TextValue" ColumnName="Text" />
+                <ScalarProperty Name="FontID" ColumnName="FontID" />
+                <ScalarProperty Name="VinylColorID" ColumnName="VinylColorID" />
+                <ScalarProperty Name="DesignID" ColumnName="DesignID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="VinylColors">
             <EntityTypeMapping TypeName="TShirtModel.VinylColor">
               <MappingFragment StoreEntitySet="VinylColors">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
                 <ScalarProperty Name="Available" ColumnName="Available" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="FK_News_Accounts" TypeName="TShirtModel.FK_News_Accounts" StoreEntitySet="News">
-            <EndProperty Name="Accounts">
-              <ScalarProperty Name="ID" ColumnName="AccountID" />
-            </EndProperty>
-            <EndProperty Name="News">
-              <ScalarProperty Name="ID" ColumnName="ID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_Orders_Accounts" TypeName="TShirtModel.FK_Orders_Accounts" StoreEntitySet="Orders">
-            <EndProperty Name="Accounts">
-              <ScalarProperty Name="ID" ColumnName="AccountID" />
-            </EndProperty>
-            <EndProperty Name="Orders">
-              <ScalarProperty Name="ID" ColumnName="ID" />
-            </EndProperty>
-            <Condition IsNull="false" ColumnName="AccountID" />
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_Colors_Ranges" TypeName="TShirtModel.FK_Colors_Ranges" StoreEntitySet="Colors">
-            <EndProperty Name="Ranges">
-              <ScalarProperty Name="ID" ColumnName="RangeID" />
-            </EndProperty>
-            <EndProperty Name="Colors">
-              <ScalarProperty Name="ID" ColumnName="ID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_Designs_Colors" TypeName="TShirtModel.FK_Designs_Colors" StoreEntitySet="Designs">
-            <EndProperty Name="Colors">
-              <ScalarProperty Name="ID" ColumnName="ColorID" />
-            </EndProperty>
-            <EndProperty Name="Designs">
-              <ScalarProperty Name="ID" ColumnName="ID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_Sizes_Colors" TypeName="TShirtModel.FK_Sizes_Colors" StoreEntitySet="Sizes">
-            <EndProperty Name="Colors">
-              <ScalarProperty Name="ID" ColumnName="ColorID" />
-            </EndProperty>
-            <EndProperty Name="Sizes">
-              <ScalarProperty Name="ID" ColumnName="ID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_OrderLines_Designs" TypeName="TShirtModel.FK_OrderLines_Designs" StoreEntitySet="OrderLines">
-            <EndProperty Name="Designs">
-              <ScalarProperty Name="ID" ColumnName="DesignID" />
-            </EndProperty>
-            <EndProperty Name="OrderLines">
-              <ScalarProperty Name="ID" ColumnName="ID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_Pictures_Designs" TypeName="TShirtModel.FK_Pictures_Designs" StoreEntitySet="Pictures">
-            <EndProperty Name="Designs">
-              <ScalarProperty Name="ID" ColumnName="DesignID" />
-            </EndProperty>
-            <EndProperty Name="Pictures">
-              <ScalarProperty Name="ID" ColumnName="ID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_Text_Designs" TypeName="TShirtModel.FK_Text_Designs" StoreEntitySet="Text">
-            <EndProperty Name="Designs">
-              <ScalarProperty Name="ID" ColumnName="DesignID" />
-            </EndProperty>
-            <EndProperty Name="Text">
-              <ScalarProperty Name="ID" ColumnName="ID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_Text_Fonts" TypeName="TShirtModel.FK_Text_Fonts" StoreEntitySet="Text">
-            <EndProperty Name="Fonts">
-              <ScalarProperty Name="ID" ColumnName="FontID" />
-            </EndProperty>
-            <EndProperty Name="Text">
-              <ScalarProperty Name="ID" ColumnName="ID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_Ranges_GarmentTypes" TypeName="TShirtModel.FK_Ranges_GarmentTypes" StoreEntitySet="Ranges">
-            <EndProperty Name="GarmentTypes">
-              <ScalarProperty Name="ID" ColumnName="GarmentTypeID" />
-            </EndProperty>
-            <EndProperty Name="Ranges">
-              <ScalarProperty Name="ID" ColumnName="ID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_OrderLines_Orders" TypeName="TShirtModel.FK_OrderLines_Orders" StoreEntitySet="OrderLines">
-            <EndProperty Name="Orders">
-              <ScalarProperty Name="ID" ColumnName="OrderID" />
-            </EndProperty>
-            <EndProperty Name="OrderLines">
-              <ScalarProperty Name="ID" ColumnName="ID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_OrderLines_Sizes" TypeName="TShirtModel.FK_OrderLines_Sizes" StoreEntitySet="OrderLines">
-            <EndProperty Name="Sizes">
-              <ScalarProperty Name="ID" ColumnName="SizeID" />
-            </EndProperty>
-            <EndProperty Name="OrderLines">
-              <ScalarProperty Name="ID" ColumnName="ID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_Orders_OrderStatuses" TypeName="TShirtModel.FK_Orders_OrderStatuses" StoreEntitySet="Orders">
-            <EndProperty Name="OrderStatuses">
-              <ScalarProperty Name="ID" ColumnName="StatusID" />
-            </EndProperty>
-            <EndProperty Name="Orders">
-              <ScalarProperty Name="ID" ColumnName="ID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_Text_VinylColors" TypeName="TShirtModel.FK_Text_VinylColors" StoreEntitySet="Text">
-            <EndProperty Name="VinylColors">
-              <ScalarProperty Name="ID" ColumnName="VinylColorID" />
-            </EndProperty>
-            <EndProperty Name="Text">
-              <ScalarProperty Name="ID" ColumnName="ID" />
-            </EndProperty>
-          </AssociationSetMapping>
+          <EntitySetMapping Name="Colors">
+            <EntityTypeMapping TypeName="TShirtModel.Color">
+              <MappingFragment StoreEntitySet="Colors">
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="ColorCode" ColumnName="Color" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RangeID" ColumnName="RangeID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GarmentTypes">
+            <EntityTypeMapping TypeName="TShirtModel.GarmentType">
+              <MappingFragment StoreEntitySet="GarmentTypes">
+                <ScalarProperty Name="Available" ColumnName="Available" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="News">
+            <EntityTypeMapping TypeName="TShirtModel.News">
+              <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderStatuses">
+            <EntityTypeMapping TypeName="TShirtModel.OrderStatus">
+              <MappingFragment StoreEntitySet="OrderStatuses">
+                <ScalarProperty Name="IsClosed" ColumnName="IsClosed" />
+                <ScalarProperty Name="IsPlaced" ColumnName="IsPlaced" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ranges">
+            <EntityTypeMapping TypeName="TShirtModel.Range">
+              <MappingFragment StoreEntitySet="Ranges">
+                <ScalarProperty Name="Available" ColumnName="Available" />
+                <ScalarProperty Name="Webpage" ColumnName="Webpage" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="GarmentTypeID" ColumnName="GarmentTypeID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sizes">
+            <EntityTypeMapping TypeName="TShirtModel.Size">
+              <MappingFragment StoreEntitySet="Sizes">
+                <ScalarProperty Name="Available" ColumnName="Available" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ColorID" ColumnName="ColorID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -955,7 +987,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<TShirts.Models.Range>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Product Ranges";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -15,7 +15,16 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.GarmentType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Webpage)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.SortOrder)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Available)
         </th>
         <th></th>
     </tr>
@@ -26,11 +35,21 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.GarmentType.Name)
+        </td>
+        <td>
+            <a href="@Html.DisplayFor(modelItem => item.Webpage)">
+                @Html.DisplayFor(modelItem => item.Webpage)
+            </a>
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.SortOrder)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.Available)
+        </td>
+        <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.ID })
         </td>
     </tr>

@@ -15,6 +15,9 @@ namespace TShirts.Models
     public partial class Text
     {
         public int ID { get; set; }
+        public int DesignID { get; set; }
+        public int VinylColorID { get; set; }
+        public int FontID { get; set; }
         public string TextValue { get; set; }
         public double PositionX { get; set; }
         public double PositionY { get; set; }
