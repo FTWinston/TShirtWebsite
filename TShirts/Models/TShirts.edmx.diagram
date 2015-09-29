@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5635f9fc29b24666a3cfe9c4ef9370b2" Name="Diagram1">
+        <EntityTypeShape EntityType="TShirtModel.Account" Width="1.5" PointX="3.5" PointY="3.375" IsExpanded="true" FillColor="0, 172, 0" />
+        <EntityTypeShape EntityType="TShirtModel.Color" Width="1.5" PointX="10.25" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TShirtModel.Design" Width="1.5" PointX="10.25" PointY="3.375" IsExpanded="true" FillColor="0, 172, 0" />
+        <EntityTypeShape EntityType="TShirtModel.Font" Width="1.5" PointX="12.5" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TShirtModel.GarmentType" Width="1.5" PointX="14.75" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TShirtModel.News" Width="1.5" PointX="3.5" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TShirtModel.OrderLine" Width="1.5" PointX="8" PointY="3.375" IsExpanded="true" FillColor="0, 172, 0" />
+        <EntityTypeShape EntityType="TShirtModel.Order" Width="1.5" PointX="5.75" PointY="3.375" IsExpanded="true" FillColor="0, 172, 0" />
+        <EntityTypeShape EntityType="TShirtModel.OrderStatus" Width="1.5" PointX="5.75" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TShirtModel.Picture" Width="1.5" PointX="12.5" PointY="3.375" IsExpanded="true" FillColor="0, 172, 0" />
+        <EntityTypeShape EntityType="TShirtModel.Range" Width="1.5" PointX="12.5" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TShirtModel.Size" Width="1.5" PointX="8" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TShirtModel.Text" Width="1.5" PointX="10.25" PointY="6.375" IsExpanded="true" FillColor="0, 172, 0" />
+        <EntityTypeShape EntityType="TShirtModel.VinylColor" Width="1.5" PointX="8" PointY="6.375" IsExpanded="true" />
+        <AssociationConnector Association="TShirtModel.FK_News_Accounts" ManuallyRouted="false" />
+        <AssociationConnector Association="TShirtModel.FK_Orders_Accounts" ManuallyRouted="false" />
+        <AssociationConnector Association="TShirtModel.FK_Colors_Ranges" ManuallyRouted="false" />
+        <AssociationConnector Association="TShirtModel.FK_Designs_Colors" ManuallyRouted="false" />
+        <AssociationConnector Association="TShirtModel.FK_Sizes_Colors" ManuallyRouted="false" />
+        <AssociationConnector Association="TShirtModel.FK_OrderLines_Designs" ManuallyRouted="false" />
+        <AssociationConnector Association="TShirtModel.FK_Pictures_Designs" ManuallyRouted="false" />
+        <AssociationConnector Association="TShirtModel.FK_Text_Designs" ManuallyRouted="false" />
+        <AssociationConnector Association="TShirtModel.FK_Text_Fonts" ManuallyRouted="false" />
+        <AssociationConnector Association="TShirtModel.FK_Ranges_GarmentTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="TShirtModel.FK_OrderLines_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="TShirtModel.FK_OrderLines_Sizes" ManuallyRouted="false" />
+        <AssociationConnector Association="TShirtModel.FK_Orders_OrderStatuses" ManuallyRouted="false" />
+        <AssociationConnector Association="TShirtModel.FK_Text_VinylColors" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

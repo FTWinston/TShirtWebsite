@@ -165,8 +165,65 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Account.cs">
+      <DependentUpon>TShirts.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Color.cs">
+      <DependentUpon>TShirts.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Design.cs">
+      <DependentUpon>TShirts.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Font.cs">
+      <DependentUpon>TShirts.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GarmentType.cs">
+      <DependentUpon>TShirts.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\News.cs">
+      <DependentUpon>TShirts.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Order.cs">
+      <DependentUpon>TShirts.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderLine.cs">
+      <DependentUpon>TShirts.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderStatus.cs">
+      <DependentUpon>TShirts.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Picture.cs">
+      <DependentUpon>TShirts.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Range.cs">
+      <DependentUpon>TShirts.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Size.cs">
+      <DependentUpon>TShirts.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Text.cs">
+      <DependentUpon>TShirts.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TShirts.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TShirts.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TShirts.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TShirts.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TShirts.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TShirts.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VinylColor.cs">
+      <DependentUpon>TShirts.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -179,6 +236,23 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\TShirts.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>TShirts.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\TShirts.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TShirts.edmx</DependentUpon>
+      <LastGenOutput>TShirts.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\TShirts.edmx.diagram">
+      <DependentUpon>TShirts.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\TShirts.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TShirts.edmx</DependentUpon>
+      <LastGenOutput>TShirts.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
