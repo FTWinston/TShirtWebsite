@@ -17,7 +17,7 @@ namespace TShirts.Areas.Config
             context.MapRoute(
                 "Config_default",
                 "Config/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { controller = "Ranges", action = "Index", id = UrlParameter.Optional }
             );
         }
     }
