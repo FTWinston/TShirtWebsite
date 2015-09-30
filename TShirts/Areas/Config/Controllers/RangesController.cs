@@ -80,6 +80,63 @@ namespace TShirts.Areas.Config.Controllers
             return View(range);
         }
 
+        // GET: /Config/Ranges/ColorsSizes/5
+        public ActionResult ColorsSizes(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Range range = db.Ranges.Find(id);
+            if (range == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.Colors = db.Colors.Where(x => x.RangeID == range.ID);
+
+            var allSizes = db.Sizes.Where(x => x.Color.RangeID == range.ID).OrderBy(x => x.SortOrder).ThenBy(x => x.Name).Select(x => x.Name);
+            ViewBag.Sizes = GetDistinctPreserveOrder(allSizes);
+
+            return View(range);
+        }
+
+        private static List<T> GetDistinctPreserveOrder<T>(IEnumerable<T> sourceValues)
+        {
+            var sortedValues = new List<T>();
+            var uniqueValues = new SortedSet<T>();
+
+            foreach (var value in sourceValues)
+            {
+                if (uniqueValues.Contains(value))
+                    continue;
+
+                sortedValues.Add(value);
+                uniqueValues.Add(value);
+            }
+            return sortedValues;
+        }
+
+        // POST: /Config/Ranges/ColorsSizes/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ColorsSizes([Bind(Include = "ID,GarmentTypeID,Name,SortOrder,Webpage,Available")] Range range)
+        {
+            /*
+            if (ModelState.IsValid)
+            {
+                db.Entry(range).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.GarmentTypes = new SelectList(db.GarmentTypes, "ID", "Name");
+            */
+            return View(range);
+        }
+
         // GET: /Config/Ranges/Delete/5
         public ActionResult Delete(int? id)
         {

@@ -4,15 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5635f9fc29b24666a3cfe9c4ef9370b2" Name="Diagram1" ZoomLevel="55">
-        <EntityTypeShape EntityType="TShirtModel.Account" Width="1.5" PointX="3.5" PointY="3.625" FillColor="0, 172, 0" />
-        <EntityTypeShape EntityType="TShirtModel.Design" Width="1.5" PointX="10.25" PointY="3.625" FillColor="0, 172, 0" />
-        <EntityTypeShape EntityType="TShirtModel.Font" Width="1.5" PointX="12.5" PointY="7.125" />
-        <EntityTypeShape EntityType="TShirtModel.OrderLine" Width="1.5" PointX="8" PointY="3.625" FillColor="0, 172, 0" />
-        <EntityTypeShape EntityType="TShirtModel.Order" Width="1.5" PointX="5.75" PointY="3.625" FillColor="0, 172, 0" />
-        <EntityTypeShape EntityType="TShirtModel.Picture" Width="1.5" PointX="12.5" PointY="3.625" FillColor="0, 172, 0" />
-        <EntityTypeShape EntityType="TShirtModel.Text" Width="1.5" PointX="10.25" PointY="7.125" FillColor="0, 172, 0" />
-        <EntityTypeShape EntityType="TShirtModel.VinylColor" Width="1.5" PointX="8" PointY="7.125" />
+      <Diagram DiagramId="5635f9fc29b24666a3cfe9c4ef9370b2" Name="Diagram1" ZoomLevel="82">
+        <EntityTypeShape EntityType="TShirtModel.Account" Width="1.5" PointX="3.5" PointY="4" FillColor="0, 172, 0" />
+        <EntityTypeShape EntityType="TShirtModel.Design" Width="1.5" PointX="10.25" PointY="4" FillColor="0, 172, 0" />
+        <EntityTypeShape EntityType="TShirtModel.Font" Width="1.5" PointX="12.5" PointY="7.5" />
+        <EntityTypeShape EntityType="TShirtModel.OrderLine" Width="1.5" PointX="8" PointY="4" FillColor="0, 172, 0" />
+        <EntityTypeShape EntityType="TShirtModel.Order" Width="1.5" PointX="5.75" PointY="4" FillColor="0, 172, 0" />
+        <EntityTypeShape EntityType="TShirtModel.Picture" Width="1.5" PointX="12.5" PointY="4" FillColor="0, 172, 0" />
+        <EntityTypeShape EntityType="TShirtModel.Text" Width="1.5" PointX="10.25" PointY="7.5" FillColor="0, 172, 0" />
+        <EntityTypeShape EntityType="TShirtModel.VinylColor" Width="1.5" PointX="8" PointY="7.5" />
         <AssociationConnector Association="TShirtModel.FK_Orders_Accounts" />
         <AssociationConnector Association="TShirtModel.FK_OrderLines_Designs" />
         <AssociationConnector Association="TShirtModel.FK_Pictures_Designs" />

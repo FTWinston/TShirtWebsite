@@ -273,6 +273,7 @@
     <Content Include="Areas\Config\Views\News\Details.cshtml" />
     <Content Include="Areas\Config\Views\News\Edit.cshtml" />
     <Content Include="Areas\Config\Views\News\Index.cshtml" />
+    <Content Include="Areas\Config\Views\Ranges\ColorsSizes.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

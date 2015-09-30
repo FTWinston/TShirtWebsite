@@ -25,6 +25,8 @@ namespace TShirts.Models
         public string Name { get; set; }
         public string ColorCode { get; set; }
         public int SortOrder { get; set; }
+        public string ImagePath { get; set; }
+        public string SupplierCode { get; set; }
     
         public virtual Range Range { get; set; }
         public virtual ICollection<Design> Designs { get; set; }

@@ -1,0 +1,105 @@
+﻿@model TShirts.Models.Range
+
+@{
+    ViewBag.Title = "Colors & Sizes";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h3>Range: @Model.Name</h3>
+        <a href="@Model.Webpage">@Model.Webpage</a>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.ID)
+
+        <h4>All sizes</h4>
+        <ul id="allSizes">
+           @foreach (var size in ViewBag.Sizes)
+           {
+               @:<li>@size</li>
+           }
+        </ul>
+
+        <h4>All colors</h4>
+        <div id="allColors">
+            @foreach (var color in ViewBag.Colors)
+            {
+                @:<div class="colorItem" style="background-image: url('@color.ImagePath')">
+                    <div class="name">@color.Name</div>
+                    <div class="code">@color.SupplierCode</div>
+
+                    <ul class="sizes"></ul>
+                @:</div>
+            }
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+    $(function() {
+        var masterList = $('#allSizes > li');
+        var itemLists = $('#allColors > .colorItem > .sizes');
+
+        itemLists.each(function () {
+            var markup = '';
+
+            var colorID = $(this).siblings('.name').text();
+            masterList.each(function () {
+                var size = $(this).text();
+                var id = ("chk" + colorID + '_' + size).replace(/ /g, '');
+                markup += '<input id="' + id + '" type="checkbox" name="' + colorID + '" value="' + size + '"> <label for="' + id + '">' + size + '</label><br/>';
+            });
+
+            $(this).html(markup);
+        });
+    });
+</script>
+
+<style type="text/css">
+    #allColors > .colorItem {
+        display: inline-block;
+        border: solid 1px black;
+        margin: 0.5em;
+        width: 230px;
+        min-height: 230px;
+        background-position: top;
+        background-repeat: no-repeat;
+        background-size: contain;
+        position: relative;
+        padding-top: 2.75em;
+        color: black;
+        text-shadow: 0 0 4px white, 0 0 4px white, 0 0 4px white, 0 0 4px white, 0 0 4px white, 0 0 4px white, 0 0 4px white, 0 0 4px white;
+    }
+
+    #allColors > .colorItem > .name {
+        position: absolute;
+        left: 1em;
+        top: 1em;
+        font-weight: bold;
+    }
+
+    #allColors > .colorItem > .code {
+        position: absolute;
+        right: 1em;
+        top: 1em;
+    }
+</style>
+}
