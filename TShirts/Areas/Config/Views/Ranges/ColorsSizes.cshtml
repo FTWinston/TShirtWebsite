@@ -22,18 +22,25 @@
         <ul id="allSizes">
            @foreach (var size in ViewBag.Sizes)
            {
-               @:<li>@size</li>
+               @:<li name="@size">
+                    @size
+               @:</li>
            }
         </ul>
 
         <h4>All colors</h4>
         <div id="allColors">
-            @foreach (var color in ViewBag.Colors)
+            @foreach (TShirts.Models.ProductColor color in ViewBag.Colors)
             {
                 @:<div class="colorItem" style="background-image: url('@color.ImagePath')">
                     <div class="name">@color.Name</div>
                     <div class="code">@color.SupplierCode</div>
-
+                    <div class="availableSizes">
+                        @foreach (var size in color.ProductSizes.Where(x => x.Available).ToList())
+                        {
+                            @:<span name="@size.Name"></span>
+                        }
+                    </div>
                     <ul class="sizes"></ul>
                 @:</div>
             }
@@ -57,15 +64,22 @@
     $(function() {
         var masterList = $('#allSizes > li');
         var itemLists = $('#allColors > .colorItem > .sizes');
-
+        
         itemLists.each(function () {
             var markup = '';
 
             var colorID = $(this).siblings('.name').text();
+            var savedSizes = $(this).siblings('.availableSizes');
+
             masterList.each(function () {
-                var size = $(this).text();
+                var size = $(this).attr('name');
                 var id = ("chk" + colorID + '_' + size).replace(/ /g, '');
-                markup += '<input id="' + id + '" type="checkbox" name="' + colorID + '" value="' + size + '"> <label for="' + id + '">' + size + '</label><br/>';
+                var checked = savedSizes.children('[name="' + size + '"]').length > 0;
+
+                markup += '<input id="' + id + '" type="checkbox" name="' + colorID + '" value="' + size + '"';
+                if (checked)
+                    markup += ' checked';
+                markup += '> <label for="' + id + '">' + size + '</label><br/>';
             });
 
             $(this).html(markup);
@@ -100,6 +114,10 @@
         position: absolute;
         right: 1em;
         top: 1em;
+    }
+
+    #allColors > .colorItem > .availableSizes {
+        display: none;
     }
 </style>
 }
