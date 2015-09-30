@@ -16,15 +16,15 @@ namespace TShirts.Models
     {
         public Account()
         {
-            this.News = new HashSet<News>();
             this.Orders = new HashSet<Order>();
+            this.News = new HashSet<News>();
         }
     
         public int ID { get; set; }
         public string Email { get; set; }
         public bool IsAdmin { get; set; }
     
-        public virtual ICollection<News> News { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<News> News { get; set; }
     }
 }

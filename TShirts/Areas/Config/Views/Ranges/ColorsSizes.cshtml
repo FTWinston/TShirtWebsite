@@ -1,4 +1,4 @@
-﻿@model TShirts.Models.Range
+﻿@model TShirts.Models.ProductRange
 
 @{
     ViewBag.Title = "Colors & Sizes";
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h3>Range: @Model.Name</h3>
+        <h3>Product Range: @Model.Name</h3>
         <a href="@Model.Webpage">@Model.Webpage</a>
         <hr />
         @Html.ValidationSummary(true)

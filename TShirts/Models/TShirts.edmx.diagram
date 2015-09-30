@@ -20,19 +20,19 @@
         <AssociationConnector Association="TShirtModel.FK_Text_Fonts" />
         <AssociationConnector Association="TShirtModel.FK_OrderLines_Orders" />
         <AssociationConnector Association="TShirtModel.FK_Text_VinylColors" />
-        <EntityTypeShape EntityType="TShirtModel.Color" Width="1.5" PointX="10.25" PointY="0.5" />
         <EntityTypeShape EntityType="TShirtModel.GarmentType" Width="1.5" PointX="14.75" PointY="0.5" />
         <EntityTypeShape EntityType="TShirtModel.News" Width="1.5" PointX="3.5" PointY="0.5" />
         <EntityTypeShape EntityType="TShirtModel.OrderStatus" Width="1.5" PointX="5.75" PointY="0.5" />
-        <EntityTypeShape EntityType="TShirtModel.Range" Width="1.5" PointX="12.5" PointY="0.5" />
-        <EntityTypeShape EntityType="TShirtModel.Size" Width="1.5" PointX="8" PointY="0.5" />
         <AssociationConnector Association="TShirtModel.FK_News_Accounts" />
-        <AssociationConnector Association="TShirtModel.FK_Colors_Ranges" />
-        <AssociationConnector Association="TShirtModel.FK_Designs_Colors" />
-        <AssociationConnector Association="TShirtModel.FK_Sizes_Colors" />
-        <AssociationConnector Association="TShirtModel.FK_Ranges_GarmentTypes" />
-        <AssociationConnector Association="TShirtModel.FK_OrderLines_Sizes" />
         <AssociationConnector Association="TShirtModel.FK_Orders_OrderStatuses" />
+        <EntityTypeShape EntityType="TShirtModel.ProductColor" Width="1.5" PointX="10.25" PointY="0.5" />
+        <EntityTypeShape EntityType="TShirtModel.ProductRange" Width="1.5" PointX="12.5" PointY="0.5" />
+        <EntityTypeShape EntityType="TShirtModel.ProductSize" Width="1.5" PointX="8" PointY="0.5" />
+        <AssociationConnector Association="TShirtModel.FK_Ranges_GarmentTypes1" />
+        <AssociationConnector Association="TShirtModel.FK_Colors_Ranges1" />
+        <AssociationConnector Association="TShirtModel.FK_Sizes_Colors1" />
+        <AssociationConnector Association="TShirtModel.FK_Designs_Colors" />
+        <AssociationConnector Association="TShirtModel.FK_OrderLines_Sizes" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

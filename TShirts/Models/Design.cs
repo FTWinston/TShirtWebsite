@@ -22,11 +22,11 @@ namespace TShirts.Models
         }
     
         public int ID { get; set; }
-        public int ColorID { get; set; }
+        public int ProductColorID { get; set; }
         public string Notes { get; set; }
     
-        public virtual Color Color { get; set; }
         public virtual ICollection<OrderLine> OrderLines { get; set; }
+        public virtual ProductColor ProductColor { get; set; }
         public virtual ICollection<Picture> Pictures { get; set; }
         public virtual ICollection<Text> Texts { get; set; }
     }

@@ -26,18 +26,18 @@ namespace TShirts.Models
         }
     
         public virtual DbSet<Account> Accounts { get; set; }
-        public virtual DbSet<Color> Colors { get; set; }
         public virtual DbSet<Design> Designs { get; set; }
         public virtual DbSet<Font> Fonts { get; set; }
-        public virtual DbSet<GarmentType> GarmentTypes { get; set; }
-        public virtual DbSet<News> News { get; set; }
         public virtual DbSet<OrderLine> OrderLines { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<OrderStatus> OrderStatuses { get; set; }
         public virtual DbSet<Picture> Pictures { get; set; }
-        public virtual DbSet<Range> Ranges { get; set; }
-        public virtual DbSet<Size> Sizes { get; set; }
         public virtual DbSet<Text> Texts { get; set; }
         public virtual DbSet<VinylColor> VinylColors { get; set; }
+        public virtual DbSet<GarmentType> GarmentTypes { get; set; }
+        public virtual DbSet<News> News { get; set; }
+        public virtual DbSet<OrderStatus> OrderStatuses { get; set; }
+        public virtual DbSet<ProductColor> ProductColors { get; set; }
+        public virtual DbSet<ProductRange> ProductRanges { get; set; }
+        public virtual DbSet<ProductSize> ProductSizes { get; set; }
     }
 }

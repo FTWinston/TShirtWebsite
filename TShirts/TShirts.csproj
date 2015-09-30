@@ -173,9 +173,6 @@
       <DependentUpon>TShirts.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Color.cs">
-      <DependentUpon>TShirts.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Design.cs">
       <DependentUpon>TShirts.tt</DependentUpon>
     </Compile>
@@ -201,10 +198,13 @@
     <Compile Include="Models\Picture.cs">
       <DependentUpon>TShirts.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Range.cs">
+    <Compile Include="Models\ProductColor.cs">
       <DependentUpon>TShirts.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Size.cs">
+    <Compile Include="Models\ProductRange.cs">
+      <DependentUpon>TShirts.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductSize.cs">
       <DependentUpon>TShirts.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Text.cs">

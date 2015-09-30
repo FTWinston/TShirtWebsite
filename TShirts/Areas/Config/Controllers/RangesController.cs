@@ -17,7 +17,7 @@ namespace TShirts.Areas.Config.Controllers
         // GET: /Config/Ranges/
         public ActionResult Index()
         {
-            return View(db.Ranges.ToList());
+            return View(db.ProductRanges.ToList());
         }
 
         // GET: /Config/Ranges/Create
@@ -32,11 +32,11 @@ namespace TShirts.Areas.Config.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="ID,GarmentTypeID,Name,SortOrder,Webpage,Available")] Range range)
+        public ActionResult Create([Bind(Include="ID,GarmentTypeID,Name,SortOrder,Webpage,Available")] ProductRange range)
         {
             if (ModelState.IsValid)
             {
-                db.Ranges.Add(range);
+                db.ProductRanges.Add(range);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -52,7 +52,7 @@ namespace TShirts.Areas.Config.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Range range = db.Ranges.Find(id);
+            ProductRange range = db.ProductRanges.Find(id);
             if (range == null)
             {
                 return HttpNotFound();
@@ -67,7 +67,7 @@ namespace TShirts.Areas.Config.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,GarmentTypeID,Name,SortOrder,Webpage,Available")] Range range)
+        public ActionResult Edit([Bind(Include = "ID,GarmentTypeID,Name,SortOrder,Webpage,Available")] ProductRange range)
         {
             if (ModelState.IsValid)
             {
@@ -87,15 +87,15 @@ namespace TShirts.Areas.Config.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Range range = db.Ranges.Find(id);
+            ProductRange range = db.ProductRanges.Find(id);
             if (range == null)
             {
                 return HttpNotFound();
             }
 
-            ViewBag.Colors = db.Colors.Where(x => x.RangeID == range.ID);
+            ViewBag.Colors = db.ProductColors.Where(x => x.ProductRangeID == range.ID);
 
-            var allSizes = db.Sizes.Where(x => x.Color.RangeID == range.ID).OrderBy(x => x.SortOrder).ThenBy(x => x.Name).Select(x => x.Name);
+            var allSizes = db.ProductSizes.Where(x => x.ProductColor.ProductRangeID == range.ID).OrderBy(x => x.SortOrder).ThenBy(x => x.Name).Select(x => x.Name);
             ViewBag.Sizes = GetDistinctPreserveOrder(allSizes);
 
             return View(range);
@@ -122,7 +122,7 @@ namespace TShirts.Areas.Config.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ColorsSizes([Bind(Include = "ID,GarmentTypeID,Name,SortOrder,Webpage,Available")] Range range)
+        public ActionResult ColorsSizes([Bind(Include = "ID,GarmentTypeID,Name,SortOrder,Webpage,Available")] ProductRange range)
         {
             /*
             if (ModelState.IsValid)
@@ -144,7 +144,7 @@ namespace TShirts.Areas.Config.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Range range = db.Ranges.Find(id);
+            ProductRange range = db.ProductRanges.Find(id);
             if (range == null)
             {
                 return HttpNotFound();
@@ -157,8 +157,8 @@ namespace TShirts.Areas.Config.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Range range = db.Ranges.Find(id);
-            db.Ranges.Remove(range);
+            ProductRange range = db.ProductRanges.Find(id);
+            db.ProductRanges.Remove(range);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

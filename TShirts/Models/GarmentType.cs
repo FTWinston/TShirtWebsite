@@ -16,7 +16,7 @@ namespace TShirts.Models
     {
         public GarmentType()
         {
-            this.Ranges = new HashSet<Range>();
+            this.ProductRanges = new HashSet<ProductRange>();
         }
     
         public int ID { get; set; }
@@ -24,6 +24,6 @@ namespace TShirts.Models
         public int SortOrder { get; set; }
         public bool Available { get; set; }
     
-        public virtual ICollection<Range> Ranges { get; set; }
+        public virtual ICollection<ProductRange> ProductRanges { get; set; }
     }
 }

@@ -12,20 +12,24 @@ namespace TShirts.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Size
+    public partial class ProductColor
     {
-        public Size()
+        public ProductColor()
         {
-            this.OrderLines = new HashSet<OrderLine>();
+            this.ProductSizes = new HashSet<ProductSize>();
+            this.Designs = new HashSet<Design>();
         }
     
         public int ID { get; set; }
-        public int ColorID { get; set; }
+        public int ProductRangeID { get; set; }
         public string Name { get; set; }
+        public string Color { get; set; }
         public int SortOrder { get; set; }
-        public bool Available { get; set; }
+        public string ImagePath { get; set; }
+        public string SupplierCode { get; set; }
     
-        public virtual Color Color { get; set; }
-        public virtual ICollection<OrderLine> OrderLines { get; set; }
+        public virtual ProductRange ProductRange { get; set; }
+        public virtual ICollection<ProductSize> ProductSizes { get; set; }
+        public virtual ICollection<Design> Designs { get; set; }
     }
 }
